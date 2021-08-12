@@ -2,6 +2,7 @@ from time_recordeeer.freee import freee
 import os
 
 def handle(args):
+    # 設定ファイルを読み込む
     # company_idとemp_idを取得する。
     config_path = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir))
     api = freee(config_path)
