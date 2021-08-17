@@ -3,7 +3,6 @@ import json
 import webbrowser
 from datetime import date
 from typing import Dict
-import os
 
 
 class freee:
@@ -11,8 +10,8 @@ class freee:
     company_id = ''
     emp_id = ''
 
-    def __init__(self):
-        script_path = os.path.dirname(os.path.abspath(__file__))
+    def __init__(self, path):
+        script_path = path
         with open(f'{script_path}/config.json') as f:
             config = json.load(ｆ)
             if config.get('access_token'):
@@ -28,7 +27,7 @@ class freee:
 
     def register_time_clocks(self, state: str):
         payload: Dict[str, str] = {'company_id': self.company_id, 'type': state, 'emp_id': self.emp_id, 'base_date': date.today().strftime('%Y-%m-%d')}
-        responce = requests.post(f"https://api.freee.co.jp/hr/api/v1/employees/{emp_id}/time_clocks", headers=self.headers, data=payload)
+        responce = requests.post(f"https://api.freee.co.jp/hr/api/v1/employees/{self.emp_id}/time_clocks", headers=self.headers, data=payload)
         if not responce.status_code == 201:
             raise ValueError(responce.json())
         return responce.json()
