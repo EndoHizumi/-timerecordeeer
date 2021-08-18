@@ -43,7 +43,7 @@ class freee:
         else:
              self.message = emp_info.get('message')
 
-    def register_time_clocks(self, たstate: str):
+    def register_time_clocks(self, state: str):
         payload: Dict[str, str] = {'company_id': self.company_id, 'type': state,
                                    'emp_id': self.emp_id, 'base_date': date.today().strftime('%Y-%m-%d')}
         responce = requests.post(
