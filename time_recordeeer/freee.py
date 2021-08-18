@@ -12,6 +12,7 @@ class freee:
     company_id = ''
     emp_id = ''
     message = ''
+    config = {}
 
     def __init__(self, config_data: dict) -> None:
         config = config_data
@@ -32,7 +33,6 @@ class freee:
                 'https://accounts.secure.freee.co.jp/public_api/token', headers=self.headers, data=body).json()
             config['access_token'] = res['access_token']
             config['refresh_token'] = res['refresh_token']
-
         self.headers['Authorization'] = f'Bearer {config.get("access_token")}'
         res = requests.get(
             'https://api.freee.co.jp/hr/api/v1/users/me', headers=self.headers)
@@ -42,6 +42,7 @@ class freee:
             self.emp_id = emp_info['companies'][0]['employee_id']
         else:
              self.message = emp_info.get('message')
+        self.config = config
 
     def register_time_clocks(self, state: str):
         payload: Dict[str, str] = {'company_id': self.company_id, 'type': state,
@@ -61,3 +62,6 @@ class freee:
 
     def get_message(self) -> str:
         return self.message
+
+    def get_config(self) -> dict:
+        return self.config

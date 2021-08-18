@@ -11,5 +11,7 @@ def handle(args):
     # タイムレコーダー登録APIを叩く
     if not api.get_message():
         res = api.register_time_clocks(args.state)
+        with open(os.path.join(config_path, 'config.json'), 'w') as f:
+            json.dump(api.get_config(), f)
         return res
     return api.get_message()
