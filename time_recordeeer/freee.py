@@ -14,7 +14,7 @@ class freee:
     message = ''
     config = {}
 
-    def __init__(self, config_data: dict) -> None:
+    def __init__(self, config_data: dict):
         config = config_data
         if not config.get('access_token'):
             print('config.jsonにアクセストークンが登録されていません。認証ページにログインして認可コードを取得してください')
@@ -54,8 +54,7 @@ class freee:
         return responce.json()
 
     def get_available_type(self) -> str:
-        attendance_state_map = {'break_begin': 'clockIn',
-                                'break_out': 'breakIn', 'clock_in': 'clockOut'}
+        attendance_state_map = {'break_begin': 'clockIn', 'break_out': 'breakIn', 'clock_in': 'clockOut'}
         url = f'https://api.freee.co.jp/hr/api/v1/employees/{self.emp_id}/time_clocks/available_types?company_id={self.company_id}'
         responce = requests.get(url, headers=self.headers).json()
         return attendance_state_map[responce['available_types'][0]]
