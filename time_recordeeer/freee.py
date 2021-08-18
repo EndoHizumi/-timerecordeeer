@@ -19,7 +19,7 @@ class freee:
             print('config.jsonにアクセストークンが登録されていません。認証ページにログインして認可コードを取得してください')
             token_url = f'https://accounts.secure.freee.co.jp/public_api/authorize?client_id={config["client_id"]}&redirect_uri=urn%3Aietf%3Awg%3Aoauth%3A2.0%3Aoob&response_type=code'
             webbrowser.open(token_url)
-            auth_code: str = input()
+            auth_code: str = input('認可コード：')
             self.headers['Content-Type'] = 'application/x-www-form-urlencoded'
             body = {
                 'grant_type': 'authorization_code',
