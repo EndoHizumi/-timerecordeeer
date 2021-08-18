@@ -47,7 +47,7 @@ class freee:
         payload: Dict[str, str] = {'company_id': self.company_id, 'type': state,
                                    'emp_id': self.emp_id, 'base_date': date.today().strftime('%Y-%m-%d')}
         responce = requests.post(
-            f'https://api.freee.co.jp/hr/api/v1/employees/{emp_id}/time_clocks', headers=self.headers, data=payload)
+            f'https://api.freee.co.jp/hr/api/v1/employees/{self.emp_id}/time_clocks', headers=self.headers, data=payload)
         if not responce.status_code == 201:
             raise ValueError(responce.json())
         return responce.json()
